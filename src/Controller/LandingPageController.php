@@ -10,11 +10,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LandingPageController extends AbstractController
 {
-    /**
-     * @Route("/", name="landing_page")
-     * @throws \Exception
-     */
-    public function index(Request $request)
+
+    #[Route('/', name: 'landing_page')]
+    public function index(Request $request) :Response
     {
         //Your code here
 
@@ -22,9 +20,8 @@ class LandingPageController extends AbstractController
 
         ]);
     }
-    /**
-     * @Route("/confirmation", name="confirmation")
-     */
+    
+    #[Route('confirmation', name: 'confirmation')]
     public function confirmation()
     {
         return $this->render('landing_page/confirmation.html.twig', [
