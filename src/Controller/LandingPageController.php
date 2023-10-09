@@ -14,7 +14,7 @@ class LandingPageController extends AbstractController
     #[Route('/', name: 'landing_page')]
     public function index(Request $request) :Response
     {
-        //Your code here
+        
 
         return $this->render('landing_page/index_new.html.twig', [
 
