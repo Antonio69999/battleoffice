@@ -33,6 +33,9 @@ class Adress
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $adressLine2 = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $city = null;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -148,6 +151,18 @@ class Adress
     public function setAdressLine2(?string $adressLine2): static
     {
         $this->adressLine2 = $adressLine2;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): static
+    {
+        $this->city = $city;
 
         return $this;
     }
