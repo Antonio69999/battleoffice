@@ -16,7 +16,7 @@ class LandingPageController extends AbstractController
 
     #[Route('/', name: 'landing_page', methods: ['GET', 'POST'])]
 
-    public function index(Request $request, EntityManagerInterface $entityManager ) :Response
+    public function index(Request $request, EntityManagerInterface $entityManager, ProductRepository $productRepository ) :Response
     {
 
         $products = $productRepository->findAll();
@@ -40,8 +40,8 @@ class LandingPageController extends AbstractController
             $entityManager->flush();
 
 
-        //     return $this->redirectToRoute('confirmation');
-        // }
+         return $this->redirectToRoute('confirmation');
+         }
 
         return $this->render('landing_page/index_new.html.twig', [
             'form' => $form->createView(),
