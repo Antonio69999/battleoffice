@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Order;
 use App\Form\FormOrderType;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +14,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LandingPageController extends AbstractController
 {
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
     private function createOrderForm(): Form
     {
         $order = new Order();
@@ -28,7 +36,10 @@ class LandingPageController extends AbstractController
             $form->handleRequest('$request');
 
             if ($form->isSubmitted() && $form->isValid()) {
-                //faire un truc mais quoi ? 
+                $order = $form->getData();
+                dd($order);
+                $this->entityManager->persist($order);
+                $this->entityManager->flush();
             }
         }
 
