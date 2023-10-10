@@ -21,6 +21,7 @@ class LandingPageController extends AbstractController
     #[Route('/', name: 'landing_page')]
     public function index(Request $request) :Response
     {
+        
         $form = $this->createOrderForm();
         return $this->render('landing_page/index_new.html.twig', [
             'form' => $form->createView(),
