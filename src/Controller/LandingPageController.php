@@ -13,16 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LandingPageController extends AbstractController
 {
-    private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
 
     #[Route('/', name: 'landing_page', methods: ['GET', 'POST'])]
 
-    public function index(Request $request, ProductRepository $productRepository): Response
+    public function index(Request $request, EntityManagerInterface $entityManager ) :Response
     {
 
         $products = $productRepository->findAll();
@@ -30,21 +24,20 @@ class LandingPageController extends AbstractController
         $order = new Order();
         $form = $this->createForm(FormOrderType::class, $order);
         $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+           
+            $order = $form->getData();
+            dd($form->getData());
+           
+            $client = $order->getClient();
+         
+            $client->setClient($order);
+            
+           
 
-        // if ($form->isSubmitted() && $form->isValid()) {
-        //     $order = $form->getData();
-        //     dd($order);
-        //     $client = $order->getIdClient();
-        //     $client->setClient($order);
-        //     $order = $order->getIdPayment();
-        //     $client->setPayement($order);
-        //     $order = $order->getIdBillingAddress();
-        //     $client->setBillingAddress($order);
-        //     $order = $order->getIdShippingAddress();
-        //     $client->setShippingAddress($order);
-
-        //     $this->entityManager->persist($order);
-        //     $this->entityManager->flush();
+            $entityManager->persist($order);
+            $entityManager->flush();
 
 
         //     return $this->redirectToRoute('confirmation');
@@ -59,7 +52,6 @@ class LandingPageController extends AbstractController
     #[Route('confirmation', name: 'confirmation')]
     public function confirmation(): Response
     {
-
-        return $this->render('landing_page/confirmation.html.twig');
+       return $this->render('landing_page/confirmation.html.twig');
     }
 }
