@@ -12,16 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LandingPageController extends AbstractController
 {
-    private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
 
     #[Route('/', name: 'landing_page', methods: ['GET', 'POST'])]
 
-    public function index(Request $request) :Response
+    public function index(Request $request, EntityManagerInterface $entityManager ) :Response
     {
         $order = new Order();
         $form = $this->createForm(FormOrderType::class, $order);
@@ -29,7 +23,7 @@ class LandingPageController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $order = $form->getData();
-            dd($order);
+            
          $client = $order->getIdClient();
          $client->setClient($order);
          $order = $order->getIdPayment();
@@ -39,8 +33,8 @@ class LandingPageController extends AbstractController
          $order = $order->getIdShippingAddress();
          $client->setShippingAddress($order);
 
-            $this->entityManager->persist($order);
-            $this->entityManager->flush();
+            $entityManager->persist($order);
+            $entityManager->flush();
 
           
             return $this->redirectToRoute('confirmation');
