@@ -118,7 +118,6 @@ class Order
 
         return $this;
     }
-
     /**
      * @return Collection<int, Product>
      */

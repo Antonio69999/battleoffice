@@ -37,6 +37,7 @@ class Adress
     private ?string $city = null;
 
     #[ORM\ManyToOne(inversedBy: 'adresses')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Country $country = null;
 
     public function __construct()

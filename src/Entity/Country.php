@@ -18,7 +18,7 @@ class Country
     #[ORM\Column(length: 255)]
     private ?string $country = null;
 
-    #[ORM\OneToMany(mappedBy: 'country', targetEntity: Adress::class)]
+    #[ORM\OneToMany(mappedBy: 'country', targetEntity: Adress::class, orphanRemoval: true)]
     private Collection $adresses;
 
     public function __construct()
