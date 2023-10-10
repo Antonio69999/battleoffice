@@ -15,12 +15,12 @@ class CountryType extends AbstractType
     {
         $builder
             ->add('country', ChoiceType::class,[
+                'label' => 'country',
                 'choices' => [
                     'France' => 'France',
                     'Belgique' => 'Belgique',
                     'Luxembourg' => 'Luxembourg',
-                ],
-                'label' => 'country',
+                ]
             ])
         ;
     }

@@ -36,6 +36,9 @@ class Adress
     #[ORM\Column(length: 255)]
     private ?string $city = null;
 
+    #[ORM\ManyToOne(inversedBy: 'adresses')]
+    private ?Country $country = null;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -163,6 +166,18 @@ class Adress
     public function setCity(string $city): static
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?Country $country): static
+    {
+        $this->country = $country;
 
         return $this;
     }

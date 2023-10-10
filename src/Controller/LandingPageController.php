@@ -28,20 +28,20 @@ class LandingPageController extends AbstractController
 
     #[Route('/', name: 'landing_page', methods: ['GET', 'POST'])]
 
-    public function index(Request $request) :Response
+    public function index(Request $request): Response
     {
-        
         $form = $this->createOrderForm();
-
-        if($request->isMethod('POST')){
-            $form->handleRequest('$request');
-
+    
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+    
             if ($form->isSubmitted() && $form->isValid()) {
                 $order = $form->getData();
                 dd($order);
                 $this->entityManager->persist($order);
                 $this->entityManager->flush();
             }
+
         }
 
         return $this->render('landing_page/index_new.html.twig', [

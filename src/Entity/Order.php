@@ -36,7 +36,6 @@ class Order
 
     private $adress;
     private $client;
-    private $country;
 
     public function __construct()
     {
@@ -116,18 +115,6 @@ class Order
     public function setClient(?Client $client): self
     {
         $this->client = $client;
-
-        return $this;
-    }
-
-    public function getCountry(): ?Country
-    {
-        return $this->country;
-    }
-
-    public function setCountry(?Country $country): self
-    {
-        $this->country = $country;
 
         return $this;
     }
