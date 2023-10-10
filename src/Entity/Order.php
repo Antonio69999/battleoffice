@@ -35,6 +35,7 @@ class Order
     private ?string $status = null;
 
     private $adress;
+    private $client;
 
     public function __construct()
     {
@@ -102,6 +103,18 @@ class Order
     public function setAdress(?Adress $adress): self
     {
         $this->adress = $adress;
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
 
         return $this;
     }
