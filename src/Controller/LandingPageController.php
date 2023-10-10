@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Order;
 use App\Form\FormOrderType;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,40 +22,44 @@ class LandingPageController extends AbstractController
 
     #[Route('/', name: 'landing_page', methods: ['GET', 'POST'])]
 
-    public function index(Request $request) :Response
+    public function index(Request $request, ProductRepository $productRepository): Response
     {
+
+        $products = $productRepository->findAll();
+
         $order = new Order();
         $form = $this->createForm(FormOrderType::class, $order);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $order = $form->getData();
-            dd($order);
-         $client = $order->getIdClient();
-         $client->setClient($order);
-         $order = $order->getIdPayment();
-         $client->setPayement($order);
-         $order = $order->getIdBillingAddress();
-         $client->setBillingAddress($order);
-         $order = $order->getIdShippingAddress();
-         $client->setShippingAddress($order);
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //     $order = $form->getData();
+        //     dd($order);
+        //     $client = $order->getIdClient();
+        //     $client->setClient($order);
+        //     $order = $order->getIdPayment();
+        //     $client->setPayement($order);
+        //     $order = $order->getIdBillingAddress();
+        //     $client->setBillingAddress($order);
+        //     $order = $order->getIdShippingAddress();
+        //     $client->setShippingAddress($order);
 
-            $this->entityManager->persist($order);
-            $this->entityManager->flush();
+        //     $this->entityManager->persist($order);
+        //     $this->entityManager->flush();
 
-          
-            return $this->redirectToRoute('confirmation');
-        }
+
+        //     return $this->redirectToRoute('confirmation');
+        // }
 
         return $this->render('landing_page/index_new.html.twig', [
             'form' => $form->createView(),
+            'products' => $products,
         ]);
     }
-    
+
     #[Route('confirmation', name: 'confirmation')]
     public function confirmation(): Response
     {
-      
+
         return $this->render('landing_page/confirmation.html.twig');
     }
 }

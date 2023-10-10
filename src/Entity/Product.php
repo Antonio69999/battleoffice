@@ -24,9 +24,29 @@ class Product
     #[ORM\ManyToMany(targetEntity: order::class, inversedBy: 'products')]
     private Collection $product;
 
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
+    #[ORM\Column]
+    private ?bool $isMainstream = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $gift = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $oldPrice = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $saving = null;
+
     public function __construct()
     {
         $this->product = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -78,6 +98,66 @@ class Product
     public function removeProduct(order $product): static
     {
         $this->product->removeElement($product);
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function isIsMainstream(): ?bool
+    {
+        return $this->isMainstream;
+    }
+
+    public function setIsMainstream(bool $isMainstream): static
+    {
+        $this->isMainstream = $isMainstream;
+
+        return $this;
+    }
+
+    public function getGift(): ?string
+    {
+        return $this->gift;
+    }
+
+    public function setGift(string $gift): static
+    {
+        $this->gift = $gift;
+
+        return $this;
+    }
+
+    public function getOldPrice(): ?string
+    {
+        return $this->oldPrice;
+    }
+
+    public function setOldPrice(string $oldPrice): static
+    {
+        $this->oldPrice = $oldPrice;
+
+        return $this;
+    }
+
+    public function getSaving(): ?string
+    {
+        return $this->saving;
+    }
+
+    public function setSaving(string $saving): static
+    {
+        $this->saving = $saving;
 
         return $this;
     }
