@@ -18,11 +18,21 @@ class LandingPageController extends AbstractController
         return $this->createForm(FormOrderType::class, $order);
     }
 
-    #[Route('/', name: 'landing_page')]
+    #[Route('/', name: 'landing_page', methods: ['GET', 'POST'])]
+
     public function index(Request $request) :Response
     {
         
         $form = $this->createOrderForm();
+
+        if($request->isMethod('POST')){
+            $form->handleRequest('$request');
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                //faire un truc mais quoi ? 
+            }
+        }
+
         return $this->render('landing_page/index_new.html.twig', [
             'form' => $form->createView(),
         ]);
