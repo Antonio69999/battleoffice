@@ -32,6 +32,9 @@ class Order
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'product')]
     private Collection $products;
 
+    #[ORM\Column(length: 255)]
+    private ?string $status = null;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -113,6 +116,18 @@ class Order
         if ($this->products->removeElement($product)) {
             $product->removeProduct($this);
         }
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }
