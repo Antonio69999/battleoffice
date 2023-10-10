@@ -33,7 +33,7 @@ class LandingPageController extends AbstractController
         $form = $this->createOrderForm();
 
         if($request->isMethod('POST')){
-            $form->handleRequest('$request');
+            $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $order = $form->getData();

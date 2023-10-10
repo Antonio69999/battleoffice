@@ -34,6 +34,10 @@ class Order
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
+    private $adress;
+    private $client;
+    private $country;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -88,6 +92,42 @@ class Order
     public function setIdShippingAdress(?Adress $idShippingAdress): static
     {
         $this->idShippingAdress = $idShippingAdress;
+
+        return $this;
+    }
+
+    public function getAdress(): ?Adress
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(?Adress $adress): self
+    {
+        $this->adress = $adress;
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?Country $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }
