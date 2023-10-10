@@ -30,6 +30,7 @@ class LandingPageController extends AbstractController
 
     public function index(Request $request) :Response
     {
+        
         $form = $this->createOrderForm();
 
         if($request->isMethod('POST')){

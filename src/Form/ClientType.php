@@ -21,7 +21,11 @@ class ClientType extends AbstractType
                 'label' => 'last name',
             ])
             ->add('email', EmailType::class,[
-                'label' => 'email',
+                'label' => 'Email',
+            ])
+            ->add('emailConfirmation', EmailType::class,[
+                'label' => 'Email confirmation',
+                'mapped' => false,
             ])
         ;
     }
