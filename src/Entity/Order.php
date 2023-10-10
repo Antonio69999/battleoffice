@@ -16,7 +16,6 @@ class Order
     #[ORM\Column]
     private ?int $id = null;
 
-
     #[ORM\ManyToOne(inversedBy: 'orders')]
     private ?Client $id_client = null;
 
@@ -34,6 +33,8 @@ class Order
 
     #[ORM\Column(length: 255)]
     private ?string $status = null;
+
+    private $adress;
 
     public function __construct()
     {
@@ -89,6 +90,18 @@ class Order
     public function setIdShippingAdress(?Adress $idShippingAdress): static
     {
         $this->idShippingAdress = $idShippingAdress;
+
+        return $this;
+    }
+
+    public function getAdress(): ?Adress
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(?Adress $adress): self
+    {
+        $this->adress = $adress;
 
         return $this;
     }
