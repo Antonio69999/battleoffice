@@ -20,18 +20,17 @@ class LandingPageController extends AbstractController
         $order = new Order();
         $form = $this->createForm(FormOrderType::class, $order);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
+           
             $order = $form->getData();
+            dd($form->getData());
+           
+            $client = $order->getClient();
+         
+            $client->setClient($order);
             
-         $client = $order->getIdClient();
-         $client->setClient($order);
-         $order = $order->getIdPayment();
-         $client->setPayement($order);
-         $order = $order->getIdBillingAddress();
-         $client->setBillingAddress($order);
-         $order = $order->getIdShippingAddress();
-         $client->setShippingAddress($order);
+           
 
             $entityManager->persist($order);
             $entityManager->flush();
@@ -48,7 +47,6 @@ class LandingPageController extends AbstractController
     #[Route('confirmation', name: 'confirmation')]
     public function confirmation(): Response
     {
-      
-        return $this->render('landing_page/confirmation.html.twig');
+       return $this->render('landing_page/confirmation.html.twig');
     }
 }
