@@ -20,7 +20,8 @@ class LandingPageController extends AbstractController
     }
 
     #[Route('/', name: 'landing_page', methods: ['GET', 'POST'])]
-    public function index(Request $request): Response
+
+    public function index(Request $request) :Response
     {
         $order = new Order();
         $form = $this->createForm(FormOrderType::class, $order);
