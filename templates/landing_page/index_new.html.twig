@@ -58,7 +58,9 @@
                                                 <p class="h4">
                                                 {% set price = product.price / 100 %}
                                                     {{ price|number_format(2) }}
-                                                    <span class="h6"><br>au lieu de <del class="h5 color_brand_secondary">{{ product.oldPrice / 100|number_format(1) }}</del></span>
+                                                    <span class="h6"><br>au lieu de <del class="h5 color_brand_secondary">
+                                                    {% set oldPrice = product.oldPrice / 100 %}
+                                                    {{ oldPrice|number_format(2) }}</del></span>
                                                 </p>
                                             </div>
                                         </div>
