@@ -16,9 +16,6 @@ class Order
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?bool $is_paid = null;
-
     #[ORM\ManyToOne(inversedBy: 'orders')]
     private ?Client $id_client = null;
 
@@ -34,6 +31,9 @@ class Order
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'product')]
     private Collection $products;
 
+    #[ORM\Column(length: 255)]
+    private ?string $status = null;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -42,18 +42,6 @@ class Order
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function isIsPaid(): ?bool
-    {
-        return $this->is_paid;
-    }
-
-    public function setIsPaid(bool $is_paid): static
-    {
-        $this->is_paid = $is_paid;
-
-        return $this;
     }
 
     public function getIdClient(): ?Client
@@ -127,6 +115,18 @@ class Order
         if ($this->products->removeElement($product)) {
             $product->removeProduct($this);
         }
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }
