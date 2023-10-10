@@ -16,8 +16,6 @@ class Order
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?bool $is_paid = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
     private ?Client $id_client = null;
@@ -42,18 +40,6 @@ class Order
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function isIsPaid(): ?bool
-    {
-        return $this->is_paid;
-    }
-
-    public function setIsPaid(bool $is_paid): static
-    {
-        $this->is_paid = $is_paid;
-
-        return $this;
     }
 
     public function getIdClient(): ?Client

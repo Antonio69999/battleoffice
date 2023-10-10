@@ -12,8 +12,8 @@ class PaymentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('method')
-            ->add('orders')
+            ->add('method', TextType::class)
+            ->add('orders', TextType::class)
         ;
     }
 

@@ -12,11 +12,11 @@ class AdressType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('adressLine')
-            ->add('zipcode')
-            ->add('phone')
-            ->add('adressLine2')
-            ->add('city')
+            ->add('adressLine', TextType::class)
+            ->add('zipcode', TextType::class)
+            ->add('phone', TextType::class)
+            ->add('adressLine2', TextType::class)
+            ->add('city', TextType::class)
         ;
     }
 
