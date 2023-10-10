@@ -29,7 +29,7 @@ class LandingPageController extends AbstractController
             $form->handleRequest('$request');
 
             if ($form->isSubmitted() && $form->isValid()) {
-                //faire un truc mais quoi ? 
+                //faire un truc mais quoi ?
             }
         }
 

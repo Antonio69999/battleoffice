@@ -17,11 +17,15 @@ class AdressType extends AbstractType
                 'label' => 'Adresse',
             ])
             ->add('zipcode', TextType::class)
-            ->add('phone', TextType::class)
+            ->add('phone', TextType::class, [
+                'label' => 'Telephone',
+            ])
             ->add('adressLine2', TextType::class, [
                 'label' => 'Adresse Line 2',
             ])
-            ->add('city', TextType::class)
+            ->add('city', TextType::class, [
+                'label' => 'City',
+            ])
         ;
     }
 

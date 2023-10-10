@@ -16,62 +16,63 @@
 		<p class="h6 center-align">Remplissez ce formulaire</p>
 		{{ form_start(form) }}
 		<div class="form-wrapper">
-			<div class="input-field">
-				<input type="text">
-				<label>Prénom</label>
+			<div
+				class="input-field">
+				{# <input type="text"> #}
+				{{ form_row(form.client.firstname) }}
 				<div class="form-error"></div>
 			</div>
-			<div class="input-field">
-				<input type="text">
-				<label>Nom</label>
+			<div
+				class="input-field">
+				{# <input type="text"> #}
+				{{ form_row(form.client.lastname) }}
 				<div class="form-error"></div>
 			</div>
 
-			<div class="input-field">
+			<div
+				class="input-field">
 				{# <input type="text"> #}
 				{{ form_row(form.adress.adressLine) }}
 				<div class="form-error"></div>
 			</div>
-			<div class="input-field">
+			<div
+				class="input-field">
 				{# <input type="text"> #}
-                {{ form_row(form.adress.adressLine2) }}
+				{{ form_row(form.adress.adressLine2) }}
 				<div class="form-error"></div>
 			</div>
 			<div class="input-field">
-				<input type="text">
-				<label>Ville</label>
+				{{ form_row(form.adress.city) }}
 				<div class="form-error"></div>
 			</div>
 			<div class="input-field">
-				<input type="text">
-				<label>Code postal</label>
+				{{ form_row(form.adress.zipcode) }}
+				<div class="form-error"></div>
+			</div>
+			<div
+				class="input-field">
+				{# <select>
+									<option>France</option>
+								</select>
+								<label>Pays</label> #}
+				{{ form_row(form.country) }}
 				<div class="form-error"></div>
 			</div>
 			<div class="input-field">
-				<select>
-					<option>France</option>
-				</select>
-				<label>Pays</label>
+				{{ form_row(form.adress.phone) }}
 				<div class="form-error"></div>
 			</div>
 			<div class="input-field">
-				<input type="text">
-				<label>Téléphone</label>
+				{{ form_row(form.client.email) }}
 				<div class="form-error"></div>
 			</div>
 			<div class="input-field">
-				<input type="text">
-				<label>Email</label>
-				<div class="form-error"></div>
-			</div>
-			<div class="input-field">
-				<input type="text">
-				<label>Confirmation email</label>
+				{{ form_row(form.client.emailConfirmation) }}
 				<div class="form-error"></div>
 			</div>
 		</div>
 	</div>
-	<ul class="collapsible">
+	{# <ul class="collapsible">
 		<li>
 			<div class="collapsible-header">
 				<i class="material-icons">markunread_mailbox</i>Adresse de livraison différente ?</div>
@@ -87,8 +88,8 @@
 					<div class="form-error"></div>
 				</div>
 				<div class="input-field">
-					<input type="text">
-					{# {{ form_row(form.adress) }} #}
+					<input
+					type="text">
 					<div class="form-error"></div>
 				</div>
 				<div class="input-field">
@@ -121,7 +122,7 @@
 			</div>
 		</li>
 	</ul>
-</div>
+</div> #}
 {# Etape 3 #}
 <div class="card step_3">
 	<div class="card-content">
@@ -160,3 +161,4 @@
 		</ul>
 	</div>
 </div>
+
