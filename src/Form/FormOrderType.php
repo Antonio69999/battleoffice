@@ -2,9 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Country;
 use App\Entity\Order;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,7 +17,6 @@ class FormOrderType extends AbstractType
         $builder
             ->add('adress', AdressType::class)
             ->add('client', ClientType::class)
-            ->add('country', CountryType::class)
             ->add('id_client')
             ->add('idPayment')
             ->add('idBilingAdress')
