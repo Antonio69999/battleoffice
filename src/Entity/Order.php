@@ -36,6 +36,7 @@ class Order
 
     private $adress;
     private $client;
+    private $product;
 
     public function __construct()
     {
@@ -153,6 +154,19 @@ class Order
     public function setStatus(string $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+
+    public function setProduct(?Product $product) : self
+    {
+        $this->product = $product;
 
         return $this;
     }

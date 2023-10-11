@@ -15,6 +15,7 @@ class FormOrderType extends AbstractType
         $builder
             ->add('adress', AdressType::class)
             ->add('client', ClientType::class)
+            ->add('product', ProductType::class)
             ->add('id_client')
             ->add('idPayment')
             ->add('idBilingAdress')
