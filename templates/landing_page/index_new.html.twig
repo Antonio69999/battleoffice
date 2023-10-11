@@ -41,6 +41,9 @@
                             <!-- <input name="order[cart][cart_products][0]" value="2" type="radio"> -->
                             <article>
                                 <div class="card center-align">
+                                    {% if product.isMainstream is not null and product.isMainstream == 1 %}
+                                    <div class="promo"> Offre la plus populaire ! </div>
+                                    {% endif %}
                                     <div class="row">
                                         <div class="col s12 m12 l4">
                                             <div class="image-content">
@@ -83,7 +86,6 @@
                             </article>
                         </label>
                         {% endfor %}
-
                         {# <label class="cure-radio">
                             <input name="order[cart][cart_products][0]" value="3" type="radio" checked="checked">
                             <article>
