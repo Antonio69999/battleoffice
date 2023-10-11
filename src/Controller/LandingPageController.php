@@ -23,6 +23,7 @@ class LandingPageController extends AbstractController
 
         $order = new Order();
         $form = $this->createForm(FormOrderType::class, $order);
+        
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {

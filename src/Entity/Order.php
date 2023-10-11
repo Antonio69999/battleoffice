@@ -34,8 +34,10 @@ class Order
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
-    private $adress;
+    private $adressDelivery;
+    private $adressBilling;
     private $client;
+    private $product;
 
     public function __construct()
     {
@@ -95,14 +97,26 @@ class Order
         return $this;
     }
 
-    public function getAdress(): ?Adress
+    public function getAdressDelivery(): ?Adress
     {
-        return $this->adress;
+        return $this->adressDelivery;
     }
 
-    public function setAdress(?Adress $adress): self
+    public function setAdressDelivery(?Adress $adress): self
     {
-        $this->adress = $adress;
+        $this->adressDelivery = $adress;
+
+        return $this;
+    }
+
+    public function getAdressBilling(): ?Adress
+    {
+        return $this->adressBilling;
+    }
+
+    public function setAdressBilling(?Adress $adress): self
+    {
+        $this->adressBilling = $adress;
 
         return $this;
     }
@@ -153,6 +167,19 @@ class Order
     public function setStatus(string $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+
+    public function setProduct(?Product $product) : self
+    {
+        $this->product = $product;
 
         return $this;
     }

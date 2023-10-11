@@ -14,8 +14,10 @@ class FormOrderType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('adress', AdressType::class)
+            ->add('adressDelivery', AdressType::class)
+            ->add('adressBilling', AdressType::class)
             ->add('client', ClientType::class)
+            ->add('product', ProductType::class)
             ->add('id_client')
             ->add('idPayment')
             ->add('idBilingAdress')
