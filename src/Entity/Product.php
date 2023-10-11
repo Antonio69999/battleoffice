@@ -28,7 +28,7 @@ class Product
     {
         $this->product = new ArrayCollection();
     }
-
+  
     public function getId(): ?int
     {
         return $this->id;
