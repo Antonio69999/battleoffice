@@ -32,30 +32,30 @@
 			<div
 				class="input-field">
 				{# <input type="text"> #}
-				{{ form_row(form.adress.adressLine) }}
+				{{ form_row(form.adressDelivery.adressLine) }}
 				<div class="form-error"></div>
 			</div>
 			<div
 				class="input-field">
 				{# <input type="text"> #}
-				{{ form_row(form.adress.adressLine2) }}
+				{{ form_row(form.adressDelivery.adressLine2) }}
 				<div class="form-error"></div>
 			</div>
 			<div class="input-field">
-				{{ form_row(form.adress.city) }}
+				{{ form_row(form.adressDelivery.city) }}
 				<div class="form-error"></div>
 			</div>
 			<div class="input-field">
-				{{ form_row(form.adress.zipcode) }}
+				{{ form_row(form.adressDelivery.zipcode) }}
 				<div class="form-error"></div>
 			</div>
 			<div
 				class="input-field">
-				{{ form_row(form.adress.country) }}
+				{{ form_row(form.adressDelivery.country) }}
 				<div class="form-error"></div>
 			</div>
 			<div class="input-field">
-				{{ form_row(form.adress.phone) }}
+				{{ form_row(form.adressDelivery.phone) }}
 				<div class="form-error"></div>
 			</div>
 			<div class="input-field">
@@ -68,7 +68,7 @@
 			</div>
 		</div>
 	</div>
-	{# <ul class="collapsible">
+	<ul class="collapsible">
 		<li>
 			<div class="collapsible-header">
 				<i class="material-icons">markunread_mailbox</i>Adresse de livraison différente ?</div>
@@ -84,30 +84,26 @@
 					<div class="form-error"></div>
 				</div>
 				<div class="input-field">
-					<input
-					type="text">
+					<inputtype="text">
 					<div class="form-error"></div>
 				</div>
 				<div class="input-field">
 					<input type="text">
-					<label>Complément adr.</label>
+				{{ form_row(form.adressBilling.adressLine2) }}
 					<div class="form-error"></div>
 				</div>
 				<div class="input-field">
 					<input type="text">
-					<label>Ville</label>
+				{{ form_row(form.adressBilling.city) }}
 					<div class="form-error"></div>
 				</div>
 				<div class="input-field">
 					<input type="text">
-					<label>Code postal</label>
+				{{ form_row(form.adressBilling.zipcode) }}
 					<div class="form-error"></div>
 				</div>
 				<div class="input-field">
-					<select>
-						<option>France</option>
-					</select>
-					<label>Pays</label>
+				{{ form_row(form.adressBilling.country) }}
 					<div class="form-error"></div>
 				</div>
 				<div class="input-field">
@@ -118,7 +114,7 @@
 			</div>
 		</li>
 	</ul>
-</div> #}
+</div>
 {# Etape 3 #}
 <div class="card step_3">
 	<div class="card-content">

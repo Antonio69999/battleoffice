@@ -34,7 +34,8 @@ class Order
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
-    private $adress;
+    private $adressDelivery;
+    private $adressBilling;
     private $client;
     private $product;
 
@@ -96,14 +97,26 @@ class Order
         return $this;
     }
 
-    public function getAdress(): ?Adress
+    public function getAdressDelivery(): ?Adress
     {
-        return $this->adress;
+        return $this->adressDelivery;
     }
 
-    public function setAdress(?Adress $adress): self
+    public function setAdressDelivery(?Adress $adress): self
     {
-        $this->adress = $adress;
+        $this->adressDelivery = $adress;
+
+        return $this;
+    }
+
+    public function getAdressBilling(): ?Adress
+    {
+        return $this->adressBilling;
+    }
+
+    public function setAdressBilling(?Adress $adress): self
+    {
+        $this->adressBilling = $adress;
 
         return $this;
     }
