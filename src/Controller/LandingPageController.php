@@ -28,7 +28,7 @@ class LandingPageController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
            
             $order = $form->getData();
-            dd($form->getData());
+            dd($order);
            
             $client = $order->getClient();
          
