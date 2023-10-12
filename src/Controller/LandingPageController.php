@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Adress;
 use App\Entity\Order;
-use App\Entity\Payment;
 use App\Form\FormOrderType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,6 +20,7 @@ class LandingPageController extends AbstractController
         $products = $productRepository->findAll();
 
         $order = new Order();
+        $adress = new Adress();
         $form = $this->createForm(FormOrderType::class, $order);
         
         $form->handleRequest($request);
@@ -27,25 +28,27 @@ class LandingPageController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $order = $form->getData();
 
-            dd($order);
 
             $client = $order->getClient();
-            $payment = $order->getPayment();
-            $products = $order->getProducts();
-
-          
-            $entityManager->persist($client);
-            $entityManager->persist($payment);
-
+            $adress = $order->getAdress();
         
-            foreach ($products as $product) {
+            $products = $order->getProducts();
+            $order->setStatus('fdsd');
+            $order->setAdress($adress);
+
+            $entityManager->persist($order);
+            $entityManager->persist($client);
+            $entityManager->persist($adress);
+            
+
+         foreach ($products as $product) {
                 $entityManager->persist($product);
             }
 
             $entityManager->persist($order);
             $entityManager->flush();
 
-            return $this->redirectToRoute('confirmation');
+            //return $this->redirectToRoute('confirmation');
         }
 
         return $this->render('landing_page/index_new.html.twig', [
