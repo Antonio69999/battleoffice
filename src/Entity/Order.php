@@ -17,27 +17,22 @@ class Order
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
-    private ?Client $id_client = null;
+    private ?Client $client = null;
 
     #[ORM\OneToOne(inversedBy: 'orders', cascade: ['persist', 'remove'])]
-    private ?Payment $idPayment = null;
+    private ?Payment $payment = null;
 
-    #[ORM\ManyToOne(inversedBy: 'orders')]
-    private ?Adress $idBilingAdress = null;
+    #[ORM\ManyToOne(inversedBy: 'orders', cascade: ['persist'])]
+    private ?Adress $bilingAdress = null;
 
-    #[ORM\ManyToOne(inversedBy: 'ShippingOrders')]
-    private ?Adress $idShippingAdress = null;
+    #[ORM\ManyToOne(inversedBy: 'ShippingOrders', cascade: ['persist'])]
+    private ?Adress $shippingAdress = null;
 
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'product')]
     private Collection $products;
 
     #[ORM\Column(length: 255)]
     private ?string $status = null;
-
-    private $adressDelivery;
-    private $adressBilling;
-    private $client;
-    private $product;
 
     public function __construct()
     {
@@ -49,89 +44,54 @@ class Order
         return $this->id;
     }
 
-    public function getIdClient(): ?Client
-    {
-        return $this->id_client;
-    }
-
-    public function setIdClient(?Client $id_client): static
-    {
-        $this->id_client = $id_client;
-
-        return $this;
-    }
-
-    public function getIdPayment(): ?Payment
-    {
-        return $this->idPayment;
-    }
-
-    public function setIdPayment(?Payment $idPayment): static
-    {
-        $this->idPayment = $idPayment;
-
-        return $this;
-    }
-
-    public function getIdBilingAdress(): ?Adress
-    {
-        return $this->idBilingAdress;
-    }
-
-    public function setIdBilingAdress(?Adress $idBilingAdress): static
-    {
-        $this->idBilingAdress = $idBilingAdress;
-
-        return $this;
-    }
-
-    public function getIdShippingAdress(): ?Adress
-    {
-        return $this->idShippingAdress;
-    }
-
-    public function setIdShippingAdress(?Adress $idShippingAdress): static
-    {
-        $this->idShippingAdress = $idShippingAdress;
-
-        return $this;
-    }
-
-    public function getAdressDelivery(): ?Adress
-    {
-        return $this->adressDelivery;
-    }
-
-    public function setAdressDelivery(?Adress $adress): self
-    {
-        $this->adressDelivery = $adress;
-
-        return $this;
-    }
-
-    public function getAdressBilling(): ?Adress
-    {
-        return $this->adressBilling;
-    }
-
-    public function setAdressBilling(?Adress $adress): self
-    {
-        $this->adressBilling = $adress;
-
-        return $this;
-    }
-
     public function getClient(): ?Client
     {
         return $this->client;
     }
 
-    public function setClient(?Client $client): self
+    public function setClient(?Client $client): static
     {
         $this->client = $client;
 
         return $this;
     }
+
+    public function getPayment(): ?Payment
+    {
+        return $this->payment;
+    }
+
+    public function setPayment(?Payment $payment): static
+    {
+        $this->payment = $payment;
+
+        return $this;
+    }
+
+    public function getBilingAdress(): ?Adress
+    {
+        return $this->bilingAdress;
+    }
+
+    public function setBilingAdress(?Adress $bilingAdress): static
+    {
+        $this->bilingAdress = $bilingAdress;
+
+        return $this;
+    }
+
+    public function getShippingAdress(): ?Adress
+    {
+        return $this->shippingAdress;
+    }
+
+    public function setShippingAdress(?Adress $shippingAdress): static
+    {
+        $this->shippingAdress = $shippingAdress;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Product>
      */
@@ -171,16 +131,4 @@ class Order
         return $this;
     }
 
-    public function getProduct(): ?Product
-    {
-        return $this->product;
-    }
-
-
-    public function setProduct(?Product $product) : self
-    {
-        $this->product = $product;
-
-        return $this;
-    }
 }

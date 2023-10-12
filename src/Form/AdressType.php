@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Adress;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,7 +27,9 @@ class AdressType extends AbstractType
             ->add('city', TextType::class, [
                 'label' => 'City',
             ])
-            ->add('country', CountryType::class)
+            ->add('country', CountryType::class, [], [
+    'constraints' => [new NotBlank()],
+])
         ;
     }
 
