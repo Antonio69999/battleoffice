@@ -107,14 +107,14 @@
 					<div class="form-error"></div>
 				</div>
 				<div class="input-field">
-					<input type="text">
-					<label>Téléphone</label>
+				{{ form_row(form.adressBilling.phone) }}
 					<div class="form-error"></div>
 				</div>
 			</div>
 		</li>
 	</ul>
 </div>
+{{ form_end(form) }}
 {# Etape 3 #}
 <div class="card step_3">
 	<div class="card-content">
