@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 
 class LandingPageController extends AbstractController
@@ -19,16 +20,26 @@ class LandingPageController extends AbstractController
         $products = $productRepository->findAll();
 
         $order = new Order();
+
         $form = $this->createForm(FormOrderType::class, $order);
-        
+
         $form->handleRequest($request);
- 
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //GET
             $order = $form->getData();
-            dd($order);
+            $client = $order->getClient();
 
+
+            //SET
             $order->setStatus('hello');
+            // dd($order);
 
+
+            dd($order);
+            //PERSIST
+            $entityManager->persist($client);
             $entityManager->persist($order);
             $entityManager->flush();
 
