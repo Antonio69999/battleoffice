@@ -49,8 +49,7 @@
 				{{ form_row(form.adressDelivery.zipcode) }}
 				<div class="form-error"></div>
 			</div>
-			<div
-				class="input-field">
+			<div class="input-field">
 				{{ form_row(form.adressDelivery.country) }}
 				<div class="form-error"></div>
 			</div>
@@ -72,43 +71,44 @@
 		<li>
 			<div class="collapsible-header">
 				<i class="material-icons">markunread_mailbox</i>Adresse de livraison différente ?</div>
-			<div class="collapsible-body">
+			<div
+				class="collapsible-body">
 				{# <div class="input-field">
-					<input type="text">
-					<label>Prénom</label>
-					<div class="form-error"></div>
-				</div>
-				<div class="input-field">
-					<input type="text">
-					<label>Nom</label>
-					<div class="form-error"></div>
-				</div> #}
+									<input type="text">
+									<label>Prénom</label>
+									<div class="form-error"></div>
+								</div>
+								<div class="input-field">
+									<input type="text">
+									<label>Nom</label>
+									<div class="form-error"></div>
+								</div> #}
 				<div class="input-field">
 					<inputtype="text">
-					<div class="form-error"></div>
+						<div class="form-error"></div>
+					</div>
+					<div class="input-field">
+						{{ form_row(form.adressBilling.adressLine2) }}
+						<div class="form-error"></div>
+					</div>
+					<div class="input-field">
+						{{ form_row(form.adressBilling.city) }}
+						<div class="form-error"></div>
+					</div>
+					<div class="input-field">
+						{{ form_row(form.adressBilling.zipcode) }}
+						<div class="form-error"></div>
+					</div>
+					<div class="input-field">
+						{{ form_row(form.adressBilling.country) }}
+						<div class="form-error"></div>
+					</div>
+					<div class="input-field">
+						{{ form_row(form.adressBilling.phone) }}
+						<div class="form-error"></div>
+					</div>
 				</div>
-				<div class="input-field">
-				{{ form_row(form.adressBilling.adressLine2) }}
-					<div class="form-error"></div>
-				</div>
-				<div class="input-field">
-				{{ form_row(form.adressBilling.city) }}
-					<div class="form-error"></div>
-				</div>
-				<div class="input-field">
-				{{ form_row(form.adressBilling.zipcode) }}
-					<div class="form-error"></div>
-				</div>
-				<div class="input-field">
-				{{ form_row(form.adressBilling.country) }}
-					<div class="form-error"></div>
-				</div>
-				<div class="input-field">
-				{{ form_row(form.adressBilling.phone) }}
-					<div class="form-error"></div>
-				</div>
-				{{ form_end(form) }}
-			</div>
+			</li>
 		</li>
 	</ul>
 </div>
@@ -145,10 +145,9 @@
 								<a href="https://feelwellshop.com/fr/conditions-generales-de-ventes" target="_blank">conditions générales de vente</a>
 							</p>
 						</div>
-						{{ form_end(form) }}
 					</div>
 				</div>
-										{{ form_end(form) }}
+				{{ form_end(form) }}
 
 			</li>
 		</ul>
