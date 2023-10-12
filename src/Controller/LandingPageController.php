@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Adress;
 use App\Entity\Order;
-use App\Entity\Adress;
 use App\Form\FormOrderType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,22 +31,20 @@ class LandingPageController extends AbstractController
             $client = $order->getClient();
             $adress = $order->getAdressDelivery();
             $country = $order->getAdressDelivery()->getCountry();
-            // $country = $order->getCountry();
-            // $payment = $order->getPayment();
-            $products = $order->getProducts();
+           
+          
             $order->setStatus('hello');
             $order->setAdressBilling($adress);
 
-          
+            $selectedProducts = $order->getProducts();
+    
+            foreach ($selectedProducts as $product) {
+                $order->addProduct($product);
+            }
+
             $entityManager->persist($client);
             $entityManager->persist($adress);
             $entityManager->persist($country);
-            // $entityManager->persist($payment);
-
-        
-            foreach ($products as $product) {
-                $entityManager->persist($product);
-            }
 
             $entityManager->persist($order);
             $entityManager->flush();

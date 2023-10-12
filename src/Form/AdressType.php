@@ -26,7 +26,9 @@ class AdressType extends AbstractType
             ->add('city', TextType::class, [
                 'label' => 'City',
             ])
-            ->add('country', CountryType::class)
+            ->add('country', CountryType::class, [
+                'required' => true, 
+            ])
         ;
     }
 
