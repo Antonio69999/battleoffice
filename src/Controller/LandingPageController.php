@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Order;
-use App\Entity\Adress;
-use App\Entity\Client;
 use App\Form\FormOrderType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
