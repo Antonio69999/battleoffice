@@ -17,18 +17,13 @@ class FormOrderType extends AbstractType
             ->add('adressDelivery', AdressType::class)
             ->add('adressBilling', AdressType::class)
             ->add('client', ClientType::class)
-            ->add('product', ProductType::class)
-            // ->add('id_client')
-            // ->add('idPayment')
-            // ->add('idBilingAdress')
-            // ->add('idShippingAdress')
-            // ->add('products', CollectionType::class, [
-            //     'entry_type' => ProductType::class, 
-            //     'allow_add' => true,
-            //     'allow_delete' => true,
-            //     'by_reference' => false,
-            //     'label' => 'Products', 
-            // ])
+            ->add('products', CollectionType::class, [
+                'entry_type' => ProductType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'label' => false,
+            ]);
         ;
     }
 
