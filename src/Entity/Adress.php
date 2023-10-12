@@ -24,10 +24,10 @@ class Adress
     #[ORM\Column(length: 255)]
     private ?string $phone = null;
 
-    #[ORM\OneToMany(mappedBy: 'idBilingAdress', targetEntity: Order::class)]
+    #[ORM\OneToMany(mappedBy: 'bilingAdress', targetEntity: Order::class)]
     private Collection $orders;
 
-    #[ORM\OneToMany(mappedBy: 'idShippingAdress', targetEntity: Order::class)]
+    #[ORM\OneToMany(mappedBy: 'shippingAdress', targetEntity: Order::class)]
     private Collection $ShippingOrders;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -36,14 +36,16 @@ class Adress
     #[ORM\Column(length: 255)]
     private ?string $city = null;
 
-    #[ORM\ManyToOne(inversedBy: 'adresses')]
+    #[ORM\ManyToOne(inversedBy: 'adresses', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Country $country = null;
+
 
     public function __construct()
     {
         $this->orders = new ArrayCollection();
         $this->ShippingOrders = new ArrayCollection();
+        // $this->country = 'France';
     }
 
     public function getId(): ?int
@@ -99,7 +101,7 @@ class Adress
     {
         if (!$this->orders->contains($order)) {
             $this->orders->add($order);
-            $order->setIdBilingAdress($this);
+            $order->setBilingAdress($this);
         }
 
         return $this;
@@ -109,8 +111,8 @@ class Adress
     {
         if ($this->orders->removeElement($order)) {
             // set the owning side to null (unless already changed)
-            if ($order->getIdBilingAdress() === $this) {
-                $order->setIdBilingAdress(null);
+            if ($order->getBilingAdress() === $this) {
+                $order->setBilingAdress(null);
             }
         }
 
@@ -129,7 +131,7 @@ class Adress
     {
         if (!$this->ShippingOrders->contains($shippingOrder)) {
             $this->ShippingOrders->add($shippingOrder);
-            $shippingOrder->setIdShippingAdress($this);
+            $shippingOrder->setShippingAdress($this);
         }
 
         return $this;
@@ -139,8 +141,8 @@ class Adress
     {
         if ($this->ShippingOrders->removeElement($shippingOrder)) {
             // set the owning side to null (unless already changed)
-            if ($shippingOrder->getIdShippingAdress() === $this) {
-                $shippingOrder->setIdShippingAdress(null);
+            if ($shippingOrder->getShippingAdress() === $this) {
+                $shippingOrder->setShippingAdress(null);
             }
         }
 

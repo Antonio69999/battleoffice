@@ -21,7 +21,7 @@ class Product
     #[ORM\Column]
     private ?int $price = null;
 
-    #[ORM\ManyToMany(targetEntity: order::class, inversedBy: 'products')]
+    #[ORM\ManyToMany(targetEntity: Order::class, inversedBy: 'products')]
     private Collection $product;
 
     #[ORM\Column(length: 255)]
@@ -79,14 +79,14 @@ class Product
     }
 
     /**
-     * @return Collection<int, order>
+     * @return Collection<int, Order>
      */
     public function getProduct(): Collection
     {
         return $this->product;
     }
 
-    public function addProduct(order $product): static
+    public function addProduct(Order $product): static
     {
         if (!$this->product->contains($product)) {
             $this->product->add($product);
@@ -95,7 +95,7 @@ class Product
         return $this;
     }
 
-    public function removeProduct(order $product): static
+    public function removeProduct(Order $product): static
     {
         $this->product->removeElement($product);
 

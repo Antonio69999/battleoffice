@@ -16,7 +16,7 @@ class Payment
     #[ORM\Column(length: 255)]
     private ?string $method = null;
 
-    #[ORM\OneToOne(mappedBy: 'idPayment', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'payment', cascade: ['persist', 'remove'])]
     private ?Order $orders = null;
 
     public function getId(): ?int
@@ -45,12 +45,12 @@ class Payment
     {
         // unset the owning side of the relation if necessary
         if ($orders === null && $this->orders !== null) {
-            $this->orders->setIdPayment(null);
+            $this->orders->setPayment(null);
         }
 
         // set the owning side of the relation if necessary
-        if ($orders !== null && $orders->getIdPayment() !== $this) {
-            $orders->setIdPayment($this);
+        if ($orders !== null && $orders->getPayment() !== $this) {
+            $orders->setPayment($this);
         }
 
         $this->orders = $orders;

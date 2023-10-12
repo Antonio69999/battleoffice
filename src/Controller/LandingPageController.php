@@ -26,27 +26,23 @@ class LandingPageController extends AbstractController
         $form->handleRequest($request);
  
         if ($form->isSubmitted() && $form->isValid()) {
+
             $order = $form->getData();
-
             $client = $order->getClient();
-            $adress = $order->getAdressDelivery();
-            $country = $order->getAdressDelivery()->getCountry();
-           
-          
+
+            $adress = $order->getShippingAdress();
+            $country = $order->getShippingAdress()->getCountry();
+
             $order->setStatus('hello');
-            $order->setAdressBilling($adress);
 
-            $selectedProducts = $order->getProducts();
-    
-            foreach ($selectedProducts as $product) {
-                $order->addProduct($product);
-            }
+           dd($order);
 
-            $entityManager->persist($client);
             $entityManager->persist($adress);
             $entityManager->persist($country);
-
+            $entityManager->persist($client);
             $entityManager->persist($order);
+
+          
             $entityManager->flush();
 
             //return $this->redirectToRoute('confirmation');

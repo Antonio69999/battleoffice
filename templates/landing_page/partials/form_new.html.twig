@@ -32,29 +32,30 @@
 			<div
 				class="input-field">
 				{# <input type="text"> #}
-				{{ form_row(form.adressDelivery.adressLine) }}
+				{{ form_row(form.shippingAdress.adressLine) }}
 				<div class="form-error"></div>
 			</div>
 			<div
 				class="input-field">
 				{# <input type="text"> #}
-				{{ form_row(form.adressDelivery.adressLine2) }}
+				{{ form_row(form.shippingAdress.adressLine2) }}
 				<div class="form-error"></div>
 			</div>
 			<div class="input-field">
-				{{ form_row(form.adressDelivery.city) }}
+				{{ form_row(form.shippingAdress.city) }}
 				<div class="form-error"></div>
 			</div>
 			<div class="input-field">
-				{{ form_row(form.adressDelivery.zipcode) }}
+				{{ form_row(form.shippingAdress.zipcode) }}
+				<div class="form-error"></div>
+			</div>
+			<div
+				class="input-field">
+				{{ form_row(form.shippingAdress.country) }}
 				<div class="form-error"></div>
 			</div>
 			<div class="input-field">
-				{{ form_row(form.adressDelivery.country) }}
-				<div class="form-error"></div>
-			</div>
-			<div class="input-field">
-				{{ form_row(form.adressDelivery.phone) }}
+				{{ form_row(form.shippingAdress.phone) }}
 				<div class="form-error"></div>
 			</div>
 			<div class="input-field">
@@ -71,44 +72,42 @@
 		<li>
 			<div class="collapsible-header">
 				<i class="material-icons">markunread_mailbox</i>Adresse de livraison différente ?</div>
-			<div
-				class="collapsible-body">
+			<div class="collapsible-body">
 				{# <div class="input-field">
-									<input type="text">
-									<label>Prénom</label>
-									<div class="form-error"></div>
-								</div>
-								<div class="input-field">
-									<input type="text">
-									<label>Nom</label>
-									<div class="form-error"></div>
-								</div> #}
+					<input type="text">
+					<label>Prénom</label>
+					<div class="form-error"></div>
+				</div>
+				<div class="input-field">
+					<input type="text">
+					<label>Nom</label>
+					<div class="form-error"></div>
+				</div> #}
 				<div class="input-field">
 					<inputtype="text">
-						<div class="form-error"></div>
-					</div>
-					<div class="input-field">
-						{{ form_row(form.adressBilling.adressLine2) }}
-						<div class="form-error"></div>
-					</div>
-					<div class="input-field">
-						{{ form_row(form.adressBilling.city) }}
-						<div class="form-error"></div>
-					</div>
-					<div class="input-field">
-						{{ form_row(form.adressBilling.zipcode) }}
-						<div class="form-error"></div>
-					</div>
-					<div class="input-field">
-						{{ form_row(form.adressBilling.country) }}
-						<div class="form-error"></div>
-					</div>
-					<div class="input-field">
-						{{ form_row(form.adressBilling.phone) }}
-						<div class="form-error"></div>
-					</div>
+					<div class="form-error"></div>
 				</div>
-			</li>
+				<div class="input-field">
+				{{ form_row(form.bilingAdress.adressLine2) }}
+					<div class="form-error"></div>
+				</div>
+				<div class="input-field">
+				{{ form_row(form.bilingAdress.city) }}
+					<div class="form-error"></div>
+				</div>
+				<div class="input-field">
+				{{ form_row(form.bilingAdress.zipcode) }}
+					<div class="form-error"></div>
+				</div>
+				<div class="input-field">
+				{{ form_row(form.bilingAdress.country) }}
+					<div class="form-error"></div>
+				</div>
+				<div class="input-field">
+				{{ form_row(form.bilingAdress.phone) }}
+					<div class="form-error"></div>
+				</div>
+			</div>
 		</li>
 	</ul>
 </div>
@@ -147,7 +146,7 @@
 						</div>
 					</div>
 				</div>
-				{{ form_end(form) }}
+										{{ form_end(form) }}
 
 			</li>
 		</ul>
