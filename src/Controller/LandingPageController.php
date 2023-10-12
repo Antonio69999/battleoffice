@@ -24,13 +24,13 @@ class LandingPageController extends AbstractController
         
         $form->handleRequest($request);
  
-        if ($form->isSubmitted() ) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $order = $form->getData();
 
             dd($order);
 
-            $client = $order->getIdClient();
-            $payment = $order->getIdPayment();
+            $client = $order->getClient();
+            $payment = $order->getPayment();
             $products = $order->getProducts();
 
           

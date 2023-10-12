@@ -88,17 +88,14 @@
 					<div class="form-error"></div>
 				</div>
 				<div class="input-field">
-					<input type="text">
 				{{ form_row(form.adressBilling.adressLine2) }}
 					<div class="form-error"></div>
 				</div>
 				<div class="input-field">
-					<input type="text">
 				{{ form_row(form.adressBilling.city) }}
 					<div class="form-error"></div>
 				</div>
 				<div class="input-field">
-					<input type="text">
 				{{ form_row(form.adressBilling.zipcode) }}
 					<div class="form-error"></div>
 				</div>
@@ -110,6 +107,7 @@
 				{{ form_row(form.adressBilling.phone) }}
 					<div class="form-error"></div>
 				</div>
+				
 			</div>
 		</li>
 	</ul>
@@ -147,6 +145,7 @@
 								<a href="https://feelwellshop.com/fr/conditions-generales-de-ventes" target="_blank">conditions générales de vente</a>
 							</p>
 						</div>
+						{{ form_end(form) }}
 					</div>
 				</div>
 										{{ form_end(form) }}
