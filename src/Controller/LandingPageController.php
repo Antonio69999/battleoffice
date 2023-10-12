@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Adress;
 use App\Entity\Order;
+use App\Entity\Adress;
 use App\Form\FormOrderType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,20 +29,23 @@ class LandingPageController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $order = $form->getData();
 
-
             $client = $order->getClient();
-            $adress = $order->getAdress();
-        
+            $adress = $order->getAdressDelivery();
+            $country = $order->getAdressDelivery()->getCountry();
+            // $country = $order->getCountry();
+            // $payment = $order->getPayment();
             $products = $order->getProducts();
-            $order->setStatus('fdsd');
-            $order->setAdress($adress);
+            $order->setStatus('hello');
+            $order->setAdressBilling($adress);
 
-            $entityManager->persist($order);
+          
             $entityManager->persist($client);
             $entityManager->persist($adress);
-            
+            $entityManager->persist($country);
+            // $entityManager->persist($payment);
 
-         foreach ($products as $product) {
+        
+            foreach ($products as $product) {
                 $entityManager->persist($product);
             }
 
