@@ -27,29 +27,26 @@ class LandingPageController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            //GET
-            $order = $form->getData();
-            $client = $order->getClient();
-
+            // //GET
+            // $order = $form->getData();
+            // $client = $order->getClient();
 
             //SET
-            $order->setStatus('hello');
-            
-            // dd($order);
+            $order->setStatus('WAITING');
+            // $country->setCountry($country);
+          
 
-
-            //PERSIST
-            $entityManager->persist($client);
-            $entityManager->persist($order);
             dd($order);
-
+            //PERSIST
+            // $entityManager->persist($client);
+            $entityManager->persist($order);    
             $entityManager->flush();
 
-            return $this->redirectToRoute('confirmation');
+            //return $this->redirectToRoute('confirmation');
         }
 
         return $this->render('landing_page/index_new.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form,
             'products' => $products,
         ]);
     }
