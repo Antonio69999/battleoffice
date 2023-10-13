@@ -45,7 +45,6 @@ class Adress
     {
         $this->orders = new ArrayCollection();
         $this->ShippingOrders = new ArrayCollection();
-        // $this->country = 'France';
     }
 
     public function getId(): ?int

@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Adress;
 use App\Entity\Order;
 use App\Form\FormOrderType;
 use App\Repository\ProductRepository;
@@ -10,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 
 class LandingPageController extends AbstractController
@@ -20,25 +20,26 @@ class LandingPageController extends AbstractController
         $products = $productRepository->findAll();
 
         $order = new Order();
-        $adress = new Adress();
+
         $form = $this->createForm(FormOrderType::class, $order);
-        
+
         $form->handleRequest($request);
- 
+
         if ($form->isSubmitted() && $form->isValid()) {
 
+            //GET
             $order = $form->getData();
             $client = $order->getClient();
 
-            $adress = $order->getShippingAdress();
-            $country = $order->getShippingAdress()->getCountry();
+            dd($order);
 
+            //SET
             $order->setStatus('hello');
+            // dd($order);
 
-           dd($order);
 
-            $entityManager->persist($adress);
-            $entityManager->persist($country);
+            dd($order);
+            //PERSIST
             $entityManager->persist($client);
             $entityManager->persist($order);
 

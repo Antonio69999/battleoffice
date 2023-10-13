@@ -28,7 +28,7 @@ class AdressType extends AbstractType
                 'label' => 'City',
             ])
             ->add('country', CountryType::class, [], [
-            'constraints' => [new NotBlank()]
+                'constraints' => [new NotBlank()],
 ])
         ;
     }
