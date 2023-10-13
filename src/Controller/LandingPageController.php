@@ -31,6 +31,7 @@ class LandingPageController extends AbstractController
             $order = $form->getData();
             $client = $order->getClient();
 
+            dd($order);
 
             //SET
             $order->setStatus('hello');
@@ -41,9 +42,11 @@ class LandingPageController extends AbstractController
             //PERSIST
             $entityManager->persist($client);
             $entityManager->persist($order);
+
+          
             $entityManager->flush();
 
-            return $this->redirectToRoute('confirmation');
+            //return $this->redirectToRoute('confirmation');
         }
 
         return $this->render('landing_page/index_new.html.twig', [
