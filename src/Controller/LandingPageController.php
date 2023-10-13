@@ -30,12 +30,12 @@ class LandingPageController extends AbstractController
             //GET
             $order = $form->getData();
             $client = $order->getClient();
+            $country = $order->getBilingAdress()->getCountry();
 
-            dd($order);
 
             //SET
             $order->setStatus('hello');
-            
+            $country->setCountry($country);
             // dd($order);
 
 
