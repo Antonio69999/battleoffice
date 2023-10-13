@@ -29,19 +29,20 @@ class LandingPageController extends AbstractController
 
             //GET
             $order = $form->getData();
-            $client = $order->getClient();
+           
 
             dd($order);
 
             //SET
+           
             $order->setStatus('hello');
             
             // dd($order);
 
 
-            dd($order);
+         
             //PERSIST
-            $entityManager->persist($client);
+           
             $entityManager->persist($order);
 
           
