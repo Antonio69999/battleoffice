@@ -38,7 +38,6 @@ class LandingPageController extends AbstractController
             // dd($order);
 
 
-            dd($order);
             //PERSIST
             $entityManager->persist($client);
             $entityManager->persist($order);

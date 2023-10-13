@@ -15,11 +15,11 @@ class Country
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $country = null;
-
     #[ORM\OneToMany(mappedBy: 'country', targetEntity: Adress::class, orphanRemoval: true)]
     private Collection $adresses;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $country = null;
 
     public function __construct()
     {
@@ -29,18 +29,6 @@ class Country
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
-
-    public function setCountry(string $country): static
-    {
-        $this->country = $country;
-
-        return $this;
     }
 
     /**
@@ -69,6 +57,18 @@ class Country
                 $adress->setCountry(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?string $country): static
+    {
+        $this->country = $country;
 
         return $this;
     }
