@@ -17,10 +17,8 @@ class LandingPageController extends AbstractController
     #[Route('/', name: 'landing_page', methods: ['GET', 'POST'])]
     public function index(Request $request, EntityManagerInterface $entityManager, ProductRepository $productRepository): Response
     {
-        $products = $productRepository->findAll();
-
-
         $order = new Order();
+        $products = $productRepository->findAll();
 
         $form = $this->createForm(FormOrderType::class, $order);
 
@@ -30,13 +28,16 @@ class LandingPageController extends AbstractController
 
             $selectedProductID = $request->request->get('selected_product_id');
             $products = $productRepository->find($selectedProductID);
-
+            
+            
+            $order->addProduct($products);
             //SET
             $order->setStatus('WAITING');
             // $country->setCountry($country);
 
             //PERSIST
-            $entityManager->persist($order);
+            // $entityManager->persist($client);
+            $entityManager->persist($order);  
             $entityManager->flush();
 
             //return $this->redirectToRoute('confirmation');
