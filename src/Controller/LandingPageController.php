@@ -19,6 +19,7 @@ class LandingPageController extends AbstractController
     {
         $products = $productRepository->findAll();
 
+       
         $order = new Order();
 
         $form = $this->createForm(FormOrderType::class, $order);
@@ -27,15 +28,14 @@ class LandingPageController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // //GET
-            // $order = $form->getData();
-            // $client = $order->getClient();
+            $selectedProductID = $request->request->get('selected_product_id');
+            $products = $productRepository->find($selectedProductID);
+             dd($products);
 
             //SET
             $order->setStatus('WAITING');
             // $country->setCountry($country);
           
-
          
             //PERSIST
             // $entityManager->persist($client);
@@ -47,7 +47,7 @@ class LandingPageController extends AbstractController
 
         return $this->render('landing_page/index_new.html.twig', [
             'form' => $form,
-            'products' => $products,
+            'products'=>$productRepository->findAll(),
         ]);
     }
 }
