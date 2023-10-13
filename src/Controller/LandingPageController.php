@@ -27,6 +27,8 @@ class LandingPageController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // dd($form->get('test'));
+
             // //GET
             // $order = $form->getData();
             // $client = $order->getClient();
@@ -36,7 +38,7 @@ class LandingPageController extends AbstractController
             // $country->setCountry($country);
           
 
-            dd($order);
+            // dd($order);
             //PERSIST
             // $entityManager->persist($client);
             $entityManager->persist($order);    
