@@ -7,6 +7,7 @@ use App\Form\FormOrderType;
 use App\Repository\PaymentRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use GuzzleHttp\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,23 +25,6 @@ class LandingPageController extends AbstractController
         $form = $this->createForm(FormOrderType::class, $order);
 
         $form->handleRequest($request);
-
-        //GUZZLE
-
-        $client = new Client([
-            'base_uri' => 'http://httpbin.org',
-            'timeout' => 2.0,
-        ]);
-
-        //$jsonData = ['order' => $jsonOrder];
-        
-        $token = "mJxTXVXMfRzLg6ZdhUhM4F6Eutcm1ZiPk4fNmvBMxyNR4ciRsc8v0hOmlzA0vTaX";
-
-        $header = [
-            'Authorization' => "Bearer" . $token,
-        ];
-
-        // $response = $client->request('POST', 'test');
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -91,24 +75,12 @@ class LandingPageController extends AbstractController
                 'base_uri' => 'https://api-commerce.simplon-roanne.com/',
                 'timeout'  => 2.0,
             ]);
+            $token = "mJxTXVXMfRzLg6ZdhUhM4F6Eutcm1ZiPk4fNmvBMxyNR4ciRsc8v0hOmlzA0vTaX";
 
-
-            // les methodes qui set
-            $order->addProduct($products);
-            $order->setPayment($payment);
-            $order->setStatus('WAITING');
-         
-            //PERSIST
-            // $entityManager->persist($client);
-            $entityManager->persist($order);  
-            $entityManager->flush();
-
-                $client = new Client([
-                    'base_uri' => 'https://api-commerce.simplon-roanne.com/',
-                    'timeout'  => 2.0,
-                ]);
-
-
+            $header = [
+                'Authorization' => "Bearer" . $token,
+            ];
+           
                 // les methodes qui set
                 $order->addProduct($products);
                 $order->setPayment($payment);
