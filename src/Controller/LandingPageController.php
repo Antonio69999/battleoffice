@@ -51,9 +51,9 @@ class LandingPageController extends AbstractController
         }
 
         return $this->render('landing_page/index_new.html.twig', [
-            'form' => $form,
+            'form' => $form->createView(),
             'products'=>$productRepository->findAll(),
-        
+            
         ]);
     }
 }
