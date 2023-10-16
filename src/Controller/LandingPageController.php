@@ -71,13 +71,14 @@ class LandingPageController extends AbstractController
 
                 $jsonOrder = json_encode(['order' => $jsonOrder]);
 
+                //psr7
             $client = new Client([
                 'base_uri' => 'https://api-commerce.simplon-roanne.com/',
                 'timeout'  => 2.0,
             ]);
             $token = "mJxTXVXMfRzLg6ZdhUhM4F6Eutcm1ZiPk4fNmvBMxyNR4ciRsc8v0hOmlzA0vTaX";
 
-            $header = [
+            $headers = [
                 'Authorization' => "Bearer" . $token,
             ];
            
