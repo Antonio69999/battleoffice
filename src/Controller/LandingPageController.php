@@ -39,9 +39,8 @@ class LandingPageController extends AbstractController
             $order->addProduct($products);
             $order->setPayment($payment);
             $order->setStatus('WAITING');
-     
-          
-         
+            // $country->setCountry($country);
+
             //PERSIST
             // $entityManager->persist($client);
             $entityManager->persist($order);  
