@@ -38,6 +38,18 @@ class LandingPageController extends AbstractController
                 $paymentMethod = $request->request->get('payment');
                 $payment = $paymentRepository->findOneBy(['method' => $paymentMethod]);
 
+                // les methodes qui set
+                $order->addProduct($products);
+                $order->setPayment($payment);
+                $order->setStatus('WAITING');
+
+                //PERSIST
+                // $entityManager->persist($client);
+                $entityManager->persist($order);
+                $entityManager->flush();
+
+
+
                 $jsonOrder = [
                     'status' => $order->getStatus(),
                     'client' => [
@@ -63,22 +75,20 @@ class LandingPageController extends AbstractController
                             'phone' => $order->getShippingAdress()->getPhone(),
                         ],
                     ],
-                    'payment_method' => [
-                        'method' => $order->getPayment() ? $order->getPayment()->getMethod() : null,
-                    ],
-                    'products' => $products->getName(),
+                    'payment_method' => $order->getPayment()->getMethod(),
+                    'product' => $products->getName(),
                 ];
 
                 $jsonOrder = json_encode(['order' => $jsonOrder]);
 
-                //psr7
-            $client = new Client([
-                'base_uri' => 'https://api-commerce.simplon-roanne.com/',
-                'timeout'  => 2.0,
-            ]);
-            $token = "mJxTXVXMfRzLg6ZdhUhM4F6Eutcm1ZiPk4fNmvBMxyNR4ciRsc8v0hOmlzA0vTaX";
+                $client = new Client([
+                    'base_uri' => 'https://api-commerce.simplon-roanne.com/',
+                    'timeout'  => 2.0,
+                    'verify' => false
+                ]);
+                $token = "mJxTXVXMfRzLg6ZdhUhM4F6Eutcm1ZiPk4fNmvBMxyNR4ciRsc8v0hOmlzA0vTaX";
 
-            $headers = [
+            $header = [
                 'Authorization' => "Bearer" . $token,
             ];
            
