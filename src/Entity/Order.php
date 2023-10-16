@@ -6,6 +6,7 @@ use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\Table(name: '`order`')]
@@ -17,21 +18,27 @@ class Order
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders', cascade: ['persist', 'remove'])]
+    #[Groups(['order'])]
     private ?Client $client = null;
 
     #[ORM\OneToOne(inversedBy: 'orders', cascade: ['persist', 'remove'])]
+    #[Groups(['order'])]
     private ?Payment $payment = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders', cascade: ['persist'])]
+    #[Groups(['order'])]
     private ?Adress $bilingAdress = null;
 
     #[ORM\ManyToOne(inversedBy: 'ShippingOrders', cascade: ['persist'])]
+    #[Groups(['order'])]
     private ?Adress $shippingAdress = null;
 
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'product')]
+    #[Groups(['order'])]
     private Collection $products;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['order'])]
     private ?string $status = null;
 
     public function __construct()
