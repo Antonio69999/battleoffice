@@ -39,14 +39,8 @@ class LandingPageController extends AbstractController
             $order->addProduct($products);
             $order->setPayment($payment);
             $order->setStatus('WAITING');
-<<<<<<< HEAD
             // $country->setCountry($country);
 
-=======
-     
-          
-         
->>>>>>> main
             //PERSIST
             // $entityManager->persist($client);
             $entityManager->persist($order);  
@@ -57,12 +51,7 @@ class LandingPageController extends AbstractController
 
         return $this->render('landing_page/index_new.html.twig', [
             'form' => $form,
-<<<<<<< HEAD
             'products' => $productRepository->findAll(),
-=======
-            'products'=>$productRepository->findAll(),
-        
->>>>>>> main
         ]);
     }
 }
