@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PaymentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PaymentRepository::class)]
@@ -16,8 +18,13 @@ class Payment
     #[ORM\Column(length: 255)]
     private ?string $method = null;
 
-    #[ORM\OneToOne(mappedBy: 'payment', cascade: ['persist', 'remove'])]
-    private ?Order $orders = null;
+    #[ORM\OneToMany(mappedBy: 'payment', targetEntity: Order::class)]
+    private Collection $orders;
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -36,24 +43,32 @@ class Payment
         return $this;
     }
 
-    public function getOrders(): ?Order
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrders(): Collection
     {
         return $this->orders;
     }
 
-    public function setOrders(?Order $orders): static
+    public function addOrder(Order $order): static
     {
-        // unset the owning side of the relation if necessary
-        if ($orders === null && $this->orders !== null) {
-            $this->orders->setPayment(null);
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setPayment($this);
         }
 
-        // set the owning side of the relation if necessary
-        if ($orders !== null && $orders->getPayment() !== $this) {
-            $orders->setPayment($this);
-        }
+        return $this;
+    }
 
-        $this->orders = $orders;
+    public function removeOrder(Order $order): static
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getPayment() === $this) {
+                $order->setPayment(null);
+            }
+        }
 
         return $this;
     }

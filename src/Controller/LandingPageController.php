@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use GuzzleHttp\Client;
 
 class LandingPageController extends AbstractController
 {
@@ -23,6 +24,23 @@ class LandingPageController extends AbstractController
         $form = $this->createForm(FormOrderType::class, $order);
 
         $form->handleRequest($request);
+
+        //GUZZLE
+
+        $client = new Client([
+            'base_uri' => 'http://httpbin.org',
+            'timeout' => 2.0,
+        ]);
+
+        $jsonData = ['order' => $jsonOrder];
+        
+        $token = "mJxTXVXMfRzLg6ZdhUhM4F6Eutcm1ZiPk4fNmvBMxyNR4ciRsc8v0hOmlzA0vTaX";
+
+        $header = [
+            'Authorization' => "Bearer" . $token,
+        ];
+
+        // $response = $client->request('POST', 'test');
 
         if ($form->isSubmitted() && $form->isValid()) {
 
