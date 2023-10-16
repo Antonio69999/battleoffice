@@ -19,9 +19,6 @@ class Order
     #[ORM\ManyToOne(inversedBy: 'orders', cascade: ['persist', 'remove'])]
     private ?Client $client = null;
 
-    #[ORM\OneToOne(inversedBy: 'orders', cascade: ['persist', 'remove'])]
-    private ?Payment $payment = null;
-
     #[ORM\ManyToOne(inversedBy: 'orders', cascade: ['persist'])]
     private ?Adress $bilingAdress = null;
 
@@ -33,6 +30,9 @@ class Order
 
     #[ORM\Column(length: 255)]
     private ?string $status = null;
+
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    private ?Payment $payment = null;
 
     public function __construct()
     {
@@ -52,18 +52,6 @@ class Order
     public function setClient(?Client $client): static
     {
         $this->client = $client;
-
-        return $this;
-    }
-
-    public function getPayment(): ?Payment
-    {
-        return $this->payment;
-    }
-
-    public function setPayment(?Payment $payment): static
-    {
-        $this->payment = $payment;
 
         return $this;
     }
@@ -127,6 +115,18 @@ class Order
     public function setStatus(string $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getPayment(): ?Payment
+    {
+        return $this->payment;
+    }
+
+    public function setPayment(?Payment $payment): static
+    {
+        $this->payment = $payment;
 
         return $this;
     }
