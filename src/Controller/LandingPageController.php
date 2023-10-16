@@ -7,11 +7,12 @@ use App\Form\FormOrderType;
 use App\Repository\PaymentRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use GuzzleHttp\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use GuzzleHttp\Client;
+
 
 class LandingPageController extends AbstractController
 {
@@ -70,11 +71,16 @@ class LandingPageController extends AbstractController
 
                 $jsonOrder = json_encode(['order' => $jsonOrder]);
 
-                $client = new Client([
-                    'base_uri' => 'https://api-commerce.simplon-roanne.com/',
-                    'timeout'  => 2.0,
-                ]);
+            $client = new Client([
+                'base_uri' => 'https://api-commerce.simplon-roanne.com/',
+                'timeout'  => 2.0,
+            ]);
+            $token = "mJxTXVXMfRzLg6ZdhUhM4F6Eutcm1ZiPk4fNmvBMxyNR4ciRsc8v0hOmlzA0vTaX";
 
+            $header = [
+                'Authorization' => "Bearer" . $token,
+            ];
+           
                 // les methodes qui set
                 $order->addProduct($products);
                 $order->setPayment($payment);
