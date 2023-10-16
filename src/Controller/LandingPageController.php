@@ -70,14 +70,14 @@ class LandingPageController extends AbstractController
     #[Route('/serialize-order', name: 'serialize_order', methods: ['GET'])]
     public function serializeOrder(SerializerInterface $serializer)
     {
-        $objectToSerialize = new Order();
+        $order = new Order();
 
         $normalizers = [new ObjectNormalizer()];
         $encoders = [new JsonEncoder()];
     
         $serializer = new \Symfony\Component\Serializer\Serializer($normalizers, $encoders);
     
-        $json = $serializer->serialize($objectToSerialize, 'json');
+        $json = $serializer->serialize($order, 'json');
 
         return new JsonResponse($json, 200, [], true);
     }
