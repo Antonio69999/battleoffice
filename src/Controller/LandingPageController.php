@@ -10,7 +10,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 
 class LandingPageController extends AbstractController
@@ -28,6 +27,9 @@ class LandingPageController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $selectedProductID = $request->request->get('selected_product_id');
+            if ($selectedProductID === null) {
+                $this->addFlash('error', 'Please select a product');
+            } else {
             $products = $productRepository->find($selectedProductID);
 
 
@@ -79,6 +81,7 @@ class LandingPageController extends AbstractController
             
             $jsonString = json_encode(['order' => $jsonOrder]);
 
+        }
             //return $this->redirectToRoute('confirmation');
         }
 
