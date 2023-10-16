@@ -34,13 +34,12 @@ class LandingPageController extends AbstractController
             $paymentMethod = $request->request->get('payment');
             $payment = $paymentRepository->findOneBy(['method' => $paymentMethod]);
             
+           
             
             // les methodes qui set
             $order->addProduct($products);
             $order->setPayment($payment);
             $order->setStatus('WAITING');
-     
-          
          
             //PERSIST
             // $entityManager->persist($client);
