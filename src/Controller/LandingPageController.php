@@ -8,10 +8,16 @@ use App\Repository\PaymentRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncode;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class LandingPageController extends AbstractController
 {
@@ -59,5 +65,20 @@ class LandingPageController extends AbstractController
             'products'=>$productRepository->findAll(),
             
         ]);
+    }
+
+    #[Route('/serialize-order', name: 'serialize_order', methods: ['GET'])]
+    public function serializeOrder(SerializerInterface $serializer)
+    {
+        $objectToSerialize = new Order();
+
+        $normalizers = [new ObjectNormalizer()];
+        $encoders = [new JsonEncoder()];
+    
+        $serializer = new \Symfony\Component\Serializer\Serializer($normalizers, $encoders);
+    
+        $json = $serializer->serialize($objectToSerialize, 'json');
+
+        return new JsonResponse($json, 200, [], true);
     }
 }
