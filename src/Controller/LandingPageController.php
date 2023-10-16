@@ -32,7 +32,7 @@ class LandingPageController extends AbstractController
             'timeout' => 2.0,
         ]);
 
-        $jsonData = ['order' => $jsonOrder];
+        //$jsonData = ['order' => $jsonOrder];
         
         $token = "mJxTXVXMfRzLg6ZdhUhM4F6Eutcm1ZiPk4fNmvBMxyNR4ciRsc8v0hOmlzA0vTaX";
 
