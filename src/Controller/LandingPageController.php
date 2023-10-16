@@ -28,6 +28,10 @@ class LandingPageController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $selectedProductID = $request->request->get('selected_product_id');
+
+            if ($selectedProductID === null) {
+                $this->addFlash('error', 'Please select a product');
+            } else {
             $products = $productRepository->find($selectedProductID);
 
 
@@ -47,6 +51,7 @@ class LandingPageController extends AbstractController
             $entityManager->flush();
 
             //return $this->redirectToRoute('confirmation');
+            }
         }
 
         return $this->render('landing_page/index_new.html.twig', [
