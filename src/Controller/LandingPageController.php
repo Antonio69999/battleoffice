@@ -7,6 +7,7 @@ use App\Form\FormOrderType;
 use App\Repository\PaymentRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use GuzzleHttp\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +33,7 @@ class LandingPageController extends AbstractController
             'timeout' => 2.0,
         ]);
 
-        // $jsonData = ['order' => $jsonOrder];
+        //$jsonData = ['order' => $jsonOrder];
         
         $token = "mJxTXVXMfRzLg6ZdhUhM4F6Eutcm1ZiPk4fNmvBMxyNR4ciRsc8v0hOmlzA0vTaX";
 
@@ -48,24 +49,12 @@ class LandingPageController extends AbstractController
             if ($selectedProductID === null) {
                 $this->addFlash('error', 'Please select a product');
             } else {
-            $products = $productRepository->find($selectedProductID);
+                $products = $productRepository->find($selectedProductID);
 
 
             $paymentMethod = $request->request->get('payment');
             $payment = $paymentRepository->findOneBy(['method' => $paymentMethod]);
             
-           
-            
-            // les methodes qui set
-            $order->addProduct($products);
-            $order->setPayment($payment);
-            $order->setStatus('WAITING');
-         
-            //PERSIST
-            // $entityManager->persist($client);
-            $entityManager->persist($order);  
-            $entityManager->flush();
-
             $jsonOrder = [
                 'status' => $order->getStatus(),
                 'client' => [
@@ -92,21 +81,52 @@ class LandingPageController extends AbstractController
                     ],
                 ],
                 'payment_method' => [
-                    'method' => $order->getPayment()->getMethod(),
+                    'method' => $order->getPayment() ? $order->getPayment()->getMethod() : null,
                 ],
                 'products' => $products->getName(), 
             ];
-            
-            $jsonString = json_encode(['order' => $jsonOrder]);
+           
+            $jsonOrder = json_encode(['order' => $jsonOrder]);
 
-        }
+            $client = new Client([
+                'base_uri' => 'https://api-commerce.simplon-roanne.com/',
+                'timeout'  => 2.0,
+            ]);
+
+            
+            // les methodes qui set
+            $order->addProduct($products);
+            $order->setPayment($payment);
+            $order->setStatus('WAITING');
+         
+            //PERSIST
+            // $entityManager->persist($client);
+            $entityManager->persist($order);  
+            $entityManager->flush();
+
+                $client = new Client([
+                    'base_uri' => 'https://api-commerce.simplon-roanne.com/',
+                    'timeout'  => 2.0,
+                ]);
+
+
+                // les methodes qui set
+                $order->addProduct($products);
+                $order->setPayment($payment);
+                $order->setStatus('WAITING');
+
+                //PERSIST
+                // $entityManager->persist($client);
+                $entityManager->persist($order);
+                $entityManager->flush();
+            }
             //return $this->redirectToRoute('confirmation');
         }
 
         return $this->render('landing_page/index_new.html.twig', [
             'form' => $form->createView(),
-            'products'=>$productRepository->findAll(),
-            
+            'products' => $productRepository->findAll(),
+
         ]);
     }
 }
