@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use GuzzleHttp\Client;
+
 
 class LandingPageController extends AbstractController
 {
@@ -93,7 +93,7 @@ class LandingPageController extends AbstractController
                 'timeout'  => 2.0,
             ]);
 
-            
+
             // les methodes qui set
             $order->addProduct($products);
             $order->setPayment($payment);
