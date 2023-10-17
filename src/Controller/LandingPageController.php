@@ -103,6 +103,9 @@ class LandingPageController extends AbstractController
 
                 $entityManager->persist($order);
                 $entityManager->flush();
+
+                return $this->redirectToRoute('app/confirmation');
+                
             }
           
             
