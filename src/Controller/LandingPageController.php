@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Order;
+use App\Entity\Product;
 use App\Form\FormOrderType;
 use App\Repository\PaymentRepository;
 use App\Repository\ProductRepository;
@@ -37,6 +38,7 @@ class LandingPageController extends AbstractController
 
 
                 $paymentMethod = $request->request->get('payment');
+                $productPrice = $products->getPrice();
                 $payment = $paymentRepository->findOneBy(['method' => $paymentMethod]);
 
                 // les methodes qui set
@@ -104,6 +106,7 @@ class LandingPageController extends AbstractController
                 
                 return $this->render('stripe/index.html.twig', [
                     'orderId' => $orderId,
+                    'productPrice' => $productPrice,
                     'stripe_key' => 'pk_test_51O2BYMDuAR3TG7cdCqw4uRkZOz0p8OFelvFSsEJy8vKIPpoLlTz6RoX5GWPwJrOBpTq8009t7Dc1AJZerF32Tlw800jYnzHNDw',
                 ]);
             } 

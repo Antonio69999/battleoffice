@@ -10,11 +10,13 @@ use Stripe;
 
 class StripeController extends AbstractController
 {
-    #[Route('/stripe', name: 'app_stripe')]
-    public function index(): Response
+    #[Route('/stripe/{orderId}/{productPrice}', name: 'app_stripe')]
+    public function index(string $orderId, string $productPrice): Response
     {
         return $this->render('stripe/index.html.twig', [
             'stripe_key' => $_ENV["STRIPE_KEY"],
+            'orderId' => $orderId,
+            'productPrice' => $productPrice,
         ]);
     }
 
@@ -23,16 +25,22 @@ class StripeController extends AbstractController
     public function createCharge(Request $request)
     {
         Stripe\Stripe::setApiKey($_ENV["STRIPE_SECRET"]);
+    
+        $orderId = $request->request->get('orderId');
+        $productPrice = $request->request->get('productPrice');
+    
         Stripe\Charge::create([
-            "amount" => 5 * 100,
+            "amount" => $productPrice * 100, // Convert the price to cents
             "currency" => "usd",
             "source" => $request->request->get('stripeToken'),
-            "description" => "Binaryboxtuts Payment Test"
+            "description" => "Binaryboxtuts Payment Test for Order ID: $orderId"
         ]);
+    
         $this->addFlash(
             'success',
             'Payment Successful!'
         );
+    
         return $this->redirectToRoute('app_stripe', [], Response::HTTP_SEE_OTHER);
     }
 }
