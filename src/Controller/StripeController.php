@@ -11,7 +11,7 @@ use Stripe;
 class StripeController extends AbstractController
 {
     #[Route('/stripe/{orderId}/{productPrice}', name: 'app_stripe')]
-    public function index(string $orderId, string $productPrice): Response
+    public function index(string $orderId, float $productPrice): Response
     {
         return $this->render('stripe/index.html.twig', [
             'stripe_key' => $_ENV["STRIPE_KEY"],
@@ -19,7 +19,7 @@ class StripeController extends AbstractController
             'productPrice' => $productPrice,
         ]);
     }
-
+    
 
     #[Route('/stripe/create-charge', name: 'app_stripe_charge', methods: ['POST'])]
     public function createCharge(Request $request)
@@ -42,6 +42,6 @@ class StripeController extends AbstractController
             'Payment Successful!'
         );
     
-        return $this->redirectToRoute('app_stripe', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('/confirmation.html.twig', [], Response::HTTP_SEE_OTHER);
     }
 }
