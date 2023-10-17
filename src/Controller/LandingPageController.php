@@ -94,8 +94,14 @@ class LandingPageController extends AbstractController
                     'headers' => $headers,
                     'body' => $jsonOrder
                 ]);
-                dd($response->getBody()->getContents());
-            }
+                $responseData = json_decode($response->getBody(), true); 
+                $orderId = $responseData["order_id"];
+                
+                $order->setApiOrderId($orderId);
+
+                $entityManager->persist($order);
+                $entityManager->flush();
+            } 
         }
 
         return $this->render('landing_page/index_new.html.twig', [
