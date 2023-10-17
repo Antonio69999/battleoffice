@@ -8,6 +8,8 @@ use App\Repository\PaymentRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
+use GuzzleHttp\Stream\Stream;
+use GuzzleHttp\Psr7\Response as Psr7Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,8 +50,6 @@ class LandingPageController extends AbstractController
                 $entityManager->persist($order);
                 $entityManager->flush();
 
-
-
                 $jsonOrder = [
                     'status' => $order->getStatus(),
                     'client' => [
@@ -88,21 +88,16 @@ class LandingPageController extends AbstractController
                 ]);
                 $token = "mJxTXVXMfRzLg6ZdhUhM4F6Eutcm1ZiPk4fNmvBMxyNR4ciRsc8v0hOmlzA0vTaX";
 
-            $header = [
-                'Authorization' => "Bearer" . $token,
-            ];
-           
-                // les methodes qui set
-                $order->addProduct($products);
-                $order->setPayment($payment);
-                $order->setStatus('WAITING');
+                $headers = [
+                    'Authorization' => "Bearer " . $token,
+                ];
+                $response = $client->request('POST', 'order', [
+                    'headers' => $headers,
+                    'body' => $jsonOrder
+                ]);
+                dd($response->getBody());
 
-                //PERSIST
-                // $entityManager->persist($client);
-                $entityManager->persist($order);
-                $entityManager->flush();
             }
-            //return $this->redirectToRoute('confirmation');
         }
 
         return $this->render('landing_page/index_new.html.twig', [
