@@ -102,7 +102,10 @@ class LandingPageController extends AbstractController
                 $entityManager->persist($order);
                 $entityManager->flush();
                 
-                return $this->redirectToRoute('confirmation');
+                return $this->render('stripe/index.html.twig', [
+                    'orderId' => $orderId,
+                    'stripe_key' => 'pk_test_51O2BYMDuAR3TG7cdCqw4uRkZOz0p8OFelvFSsEJy8vKIPpoLlTz6RoX5GWPwJrOBpTq8009t7Dc1AJZerF32Tlw800jYnzHNDw',
+                ]);
             } 
         }
 
