@@ -101,7 +101,7 @@ class LandingPageController extends AbstractController
                 
                 $order->setApiOrderId($orderId);
 
-                $entityManager->persist($orderId);
+                $entityManager->persist($order);
                 $entityManager->flush();
             }
           
