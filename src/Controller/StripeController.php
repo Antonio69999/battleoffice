@@ -42,6 +42,6 @@ class StripeController extends AbstractController
             'Payment Successful!'
         );
     
-        return $this->redirectToRoute('/confirmation.html.twig', [], Response::HTTP_SEE_OTHER);
-    }
+        return $this->render('landing_page/confirmation.html.twig');
+        }
 }
