@@ -40,6 +40,9 @@ class Order
     #[ORM\ManyToOne(inversedBy: 'orders')]
     private ?Payment $payment = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $apiOrderId = null;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -137,4 +140,15 @@ class Order
         return $this;
     }
 
+    public function getApiOrderId(): ?int
+    {
+        return $this->apiOrderId;
+    }
+
+    public function setApiOrderId(?int $apiOrderId): static
+    {
+        $this->apiOrderId = $apiOrderId;
+
+        return $this;
+    }
 }

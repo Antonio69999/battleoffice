@@ -96,7 +96,6 @@ class LandingPageController extends AbstractController
                 ]);
                 dd($response->getBody()->getContents());
             }
-          
         }
 
         return $this->render('landing_page/index_new.html.twig', [
