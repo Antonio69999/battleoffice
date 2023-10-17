@@ -8,8 +8,7 @@ use App\Repository\PaymentRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
-use GuzzleHttp\Stream\Stream;
-use GuzzleHttp\Psr7\Response as Psr7Response;
+use GuzzleHttp\Exception\RequestException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -95,9 +94,9 @@ class LandingPageController extends AbstractController
                     'headers' => $headers,
                     'body' => $jsonOrder
                 ]);
-                dd($response->getBody());
-
+                dd($response->getBody()->getContents());
             }
+          
         }
 
         return $this->render('landing_page/index_new.html.twig', [
