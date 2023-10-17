@@ -28,10 +28,11 @@ class StripeController extends AbstractController
     
         $orderId = $request->request->get('orderId');
         $productPrice = $request->request->get('productPrice');
-    
+
+        $formattedProductPrice = str_replace(",", ".", str_replace(".", "", $productPrice));    
         Stripe\Charge::create([
-            "amount" => $productPrice * 100, // Convert the price to cents
-            "currency" => "usd",
+            "amount" =>$formattedProductPrice * 100, // Convert the price to cents
+            "currency" => "eur",
             "source" => $request->request->get('stripeToken'),
             "description" => "Binaryboxtuts Payment Test for Order ID: $orderId"
         ]);
