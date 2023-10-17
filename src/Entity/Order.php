@@ -151,5 +151,4 @@ class Order
 
         return $this;
     }
-
 }

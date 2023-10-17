@@ -49,8 +49,6 @@ class LandingPageController extends AbstractController
                 $entityManager->persist($order);
                 $entityManager->flush();
 
-
-
                 $jsonOrder = [
                     'status' => $order->getStatus(),
                     'client' => [
@@ -103,18 +101,14 @@ class LandingPageController extends AbstractController
 
                 $entityManager->persist($order);
                 $entityManager->flush();
-
-                return $this->redirectToRoute('app/confirmation');
                 
-            }
-          
-            
+                return $this->redirectToRoute('confirmation');
+            } 
         }
 
         return $this->render('landing_page/index_new.html.twig', [
             'form' => $form->createView(),
             'products' => $productRepository->findAll(),
-
         ]);
     }
 }
