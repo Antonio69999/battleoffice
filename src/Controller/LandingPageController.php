@@ -13,13 +13,14 @@ use GuzzleHttp\Exception\RequestException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 
 class LandingPageController extends AbstractController
 {
     #[Route('/', name: 'landing_page', methods: ['GET', 'POST'])]
-    public function index(Request $request, EntityManagerInterface $entityManager, ProductRepository $productRepository, PaymentRepository $paymentRepository): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, ProductRepository $productRepository, PaymentRepository $paymentRepository, SessionInterface $session): Response
     {
         $order = new Order();
         $products = $productRepository->findAll();
@@ -104,10 +105,11 @@ class LandingPageController extends AbstractController
                 $entityManager->persist($order);
                 $entityManager->flush();
                 
-                return $this->redirectToRoute('app_stripe', [
-                    'orderId' => $orderId,
-                    'productPrice' => $productPrice,
-                ]);
+                $orderId = $order->getId();
+                $session->set('orderId', $orderId);
+                $session->set('productPrice', $productPrice);
+
+                return $this->redirectToRoute('app_stripe');
             } 
         }
 

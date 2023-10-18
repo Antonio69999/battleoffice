@@ -7,17 +7,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Stripe;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class StripeController extends AbstractController
 {
-    #[Route('/stripe/{orderId}/{productPrice}', name: 'app_stripe')]
-    public function index(string $orderId, float $productPrice): Response
+    #[Route('/stripe', name: 'app_stripe')]
+    public function index(SessionInterface $session): Response
     {
+        $orderId = $session->get('orderId');
+        $productPrice = $session->get('productPrice');
+
         return $this->render('stripe/index.html.twig', [
             'stripe_key' => $_ENV["STRIPE_KEY"],
             'orderId' => $orderId,
             'productPrice' => $productPrice,
         ]);
+        
     }
     
 
@@ -31,7 +36,7 @@ class StripeController extends AbstractController
 
         $formattedProductPrice = str_replace(",", ".", str_replace(".", "", $productPrice));    
         Stripe\Charge::create([
-            "amount" =>$formattedProductPrice * 100, // Convert the price to cents
+            "amount" =>$formattedProductPrice, // Convert the price to cents
             "currency" => "eur",
             "source" => $request->request->get('stripeToken'),
             "description" => "Binaryboxtuts Payment Test for Order ID: $orderId"
@@ -42,6 +47,9 @@ class StripeController extends AbstractController
             'Payment Successful!'
         );
     
-        return $this->redirectToRoute('/confirmation.html.twig', [], Response::HTTP_SEE_OTHER);
+        return $this->render('landing_page/confirmation.html.twig', [
+            'orderId' => $orderId,
+            'productPrice' => $productPrice,
+        ]); 
     }
 }
