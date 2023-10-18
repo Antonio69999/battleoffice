@@ -10,7 +10,7 @@ use Stripe;
 
 class StripeController extends AbstractController
 {
-    #[Route('/stripe/{orderId}/{productPrice}', name: 'app_stripe')]
+    #[Route('/stripe', name: 'app_stripe')]
     public function index(string $orderId, float $productPrice): Response
     {
         return $this->render('stripe/index.html.twig', [
@@ -19,29 +19,29 @@ class StripeController extends AbstractController
             'productPrice' => $productPrice,
         ]);
     }
-    
+
 
     #[Route('/stripe/create-charge', name: 'app_stripe_charge', methods: ['POST'])]
     public function createCharge(Request $request)
     {
         Stripe\Stripe::setApiKey($_ENV["STRIPE_SECRET"]);
-    
+
         $orderId = $request->request->get('orderId');
         $productPrice = $request->request->get('productPrice');
 
-        $formattedProductPrice = str_replace(",", ".", str_replace(".", "", $productPrice));    
+        $formattedProductPrice = str_replace(",", ".", str_replace(".", "", $productPrice));
         Stripe\Charge::create([
-            "amount" =>$formattedProductPrice * 100, // Convert the price to cents
+            "amount" => $formattedProductPrice * 100, // Convert the price to cents
             "currency" => "eur",
             "source" => $request->request->get('stripeToken'),
             "description" => "Binaryboxtuts Payment Test for Order ID: $orderId"
         ]);
-    
+
         $this->addFlash(
             'success',
             'Payment Successful!'
         );
-    
+
         return $this->render('landing_page/confirmation.html.twig');
-        }
+    }
 }

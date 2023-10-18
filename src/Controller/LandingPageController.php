@@ -9,7 +9,7 @@ use App\Repository\PaymentRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
+use Stripe\BillingPortal\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -103,7 +103,9 @@ class LandingPageController extends AbstractController
 
                 $entityManager->persist($order);
                 $entityManager->flush();
-                
+
+
+
                 return $this->redirectToRoute('app_stripe', [
                     'orderId' => $orderId,
                     'productPrice' => $productPrice,
